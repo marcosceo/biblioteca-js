@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gerenciamento de Biblioteca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8 bg-blue-700 text-white p-6 rounded-lg shadow-lg">
+            <h1 class="text-4xl font-extrabold mb-2">📚 Sistema de Gerenciamento de Biblioteca</h1>
+            <p class="text-lg">Controle seus autores, livros, usuários e empréstimos de forma eficiente.</p>
+        </header>
+
+        <!-- Seção de Cadastro de Autores -->
+        <section id="cadastro-autores" class="mb-12 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <h2 class="text-2xl font-bold text-blue-700 mb-6 pb-2 border-b-2 border-blue-200">✒️ Cadastro de Autores</h2>
+            <form id="form-autor" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <label for="autor-nome" class="text-sm font-medium text-gray-700 mb-1">Nome do Autor:</label>
+                    <input type="text" id="autor-nome" placeholder="Ex: Gabriel García Márquez" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                </div>
+                <div class="flex flex-col">
+                    <label for="autor-nacionalidade" class="text-sm font-medium text-gray-700 mb-1">Nacionalidade:</label>
+                    <input type="text" id="autor-nacionalidade" placeholder="Ex: Colombiana" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                </div>
+                <div class="flex flex-col">
+                    <label for="autor-ano-nascimento" class="text-sm font-medium text-gray-700 mb-1">Ano de Nascimento:</label>
+                    <input type="number" id="autor-ano-nascimento" placeholder="Ex: 1927" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                </div>
+                <div class="md:col-span-2 mt-4">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105">
+                        Cadastrar Autor
+                    </button>
+                </div>
+            </form>
+
+            <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4 pb-2 border-b border-gray-200">Autores Cadastrados</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200 rounded-md">
+                    <thead>
+                        <tr class="bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                            <th class="py-3 px-4 border-b">Nome</th>
+                            <th class="py-3 px-4 border-b">Nacionalidade</th>
+                            <th class="py-3 px-4 border-b">Nascimento</th>
+                            <th class="py-3 px-4 border-b">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-autores">
+                        <!-- Aqui serão listados os autores -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção de Cadastro de Livros -->
+        <section id="cadastro-livros" class="mb-12 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <h2 class="text-2xl font-bold text-blue-700 mb-6 pb-2 border-b-2 border-blue-200">📖 Cadastro de Livros</h2>
+            <form id="form-livro" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <label for="livro-titulo" class="text-sm font-medium text-gray-700 mb-1">Título:</label>
+                    <input type="text" id="livro-titulo" placeholder="Ex: Cem Anos de Solidão" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                </div>
+                <div class="flex flex-col">
+                    <label for="livro-autor" class="text-sm font-medium text-gray-700 mb-1">Autor:</label>
+                    <!-- Este select será preenchido dinamicamente com autores cadastrados pelo JS -->
+                    <select id="livro-autor" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="livro-ano-publicacao" class="text-sm font-medium text-gray-700 mb-1">Ano de Publicação:</label>
+                    <input type="number" id="livro-ano-publicacao" placeholder="Ex: 1967" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                </div>
+                <div class="flex flex-col">
+                    <label for="livro-genero" class="text-sm font-medium text-gray-700 mb-1">Gênero:</label>
+                    <input type="text" id="livro-genero" placeholder="Ex: Realismo Mágico" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                </div>
+                <div class="md:col-span-2 mt-4">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105">
+                        Cadastrar Livro
+                    </button>
+                </div>
+            </form>
+
+            <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4 pb-2 border-b border-gray-200">Livros Cadastrados</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200 rounded-md">
+                    <thead>
+                        <tr class="bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                            <th class="py-3 px-4 border-b">Título</th>
+                            <th class="py-3 px-4 border-b">Autor</th>
+                            <th class="py-3 px-4 border-b">Publicação</th>
+                            <th class="py-3 px-4 border-b">Gênero</th>
+                            <th class="py-3 px-4 border-b">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-livros">
+                        <!-- Aqui serão listados os livros -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção de Cadastro de Usuários -->
+        <section id="cadastro-usuarios" class="mb-12 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <h2 class="text-2xl font-bold text-blue-700 mb-6 pb-2 border-b-2 border-blue-200">👥 Cadastro de Usuários</h2>
+            <form id="form-usuario" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <label for="usuario-nome" class="text-sm font-medium text-gray-700 mb-1">Nome do Usuário:</label>
+                    <input type="text" id="usuario-nome" placeholder="Ex: Maria Silva" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                </div>
+                <div class="flex flex-col">
+                    <label for="usuario-tipo" class="text-sm font-medium text-gray-700 mb-1">Tipo de Usuário:</label>
+                    <select id="usuario-tipo" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                        <option value="">Selecione o Tipo</option>
+                        <option value="aluno">Aluno</option>
+                        <option value="professor">Professor</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2 mt-4">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105">
+                        Cadastrar Usuário
+                    </button>
+                </div>
+            </form>
+
+            <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4 pb-2 border-b border-gray-200">Usuários Cadastrados</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200 rounded-md">
+                    <thead>
+                        <tr class="bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                            <th class="py-3 px-4 border-b">Nome</th>
+                            <th class="py-3 px-4 border-b">Tipo</th>
+                            <th class="py-3 px-4 border-b">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-usuarios">
+                        <!-- Usuarios serão listados aqui --> 
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção de Registro de Empréstimos -->
+        <section id="registro-emprestimos" class="mb-12 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <h2 class="text-2xl font-bold text-blue-700 mb-6 pb-2 border-b-2 border-blue-200"> borrowing 📚 Registro de Empréstimos</h2>
+            <form id="form-emprestimo" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <label for="emprestimo-livro" class="text-sm font-medium text-gray-700 mb-1">Livro:</label>
+                    <!-- Este select será preenchido dinamicamente com livros disponíveis pelo JS -->
+                    <select id="emprestimo-livro" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="emprestimo-usuario" class="text-sm font-medium text-gray-700 mb-1">Usuário:</label>
+                    <!-- Este select será preenchido dinamicamente com usuários cadastrados pelo JS -->
+                    <select id="emprestimo-usuario" class="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200" required>
+                    </select>
+                </div>
+                <div class="md:col-span-2 mt-4">
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105">
+                        Registrar Empréstimo
+                    </button>
+                </div>
+            </form>
+
+            <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4 pb-2 border-b border-gray-200">Empréstimos Ativos</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200 rounded-md">
+                    <thead>
+                        <tr class="bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                            <th class="py-3 px-4 border-b">Livro</th>
+                            <th class="py-3 px-4 border-b">Usuário</th>
+                            <th class="py-3 px-4 border-b">Data Empréstimo</th>
+                            <th class="py-3 px-4 border-b">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-emprestimos">
+                        <!-- Os empréstimos serão listados aqui -->                      
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Rodapé -->
+        <footer class="text-center mt-12 text-gray-600 text-sm">
+            <p>&copy; 2025 Sistema de Gerenciamento de Biblioteca. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
